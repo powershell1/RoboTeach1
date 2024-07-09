@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+}
+
+* {
+    image-rendering: crisp-edges;
+}
+
+:root {
+    --boxes-sized: 10vmin;
+    /*
+    --dog-rotation: rotate(90deg) rotateY(180deg);
+    */
+    /*--dog-rotation: 0deg;*/
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#compile {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+iframe {
+    flex: 3;
+    border: none;
+}
+
+.dog_emulator {
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+}
+
+#action_limit {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: max-content;
+    padding-right: 15px;
+    transform: translateX(-100%);
+}
+
+.emulator {
+    display: flex;
+    background-color: gray;
+    position: relative;
+    flex-direction: column;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 50vmin;
+    width: 50vmin;
+    background-size: calc((100/6)*1%);
+    background-image: url('./images/grass.png');
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+}
+
+.dog {
+    background-image: url('./images/dog.png');
+    /*transform: var(--dog-rotation);*/
+}
+
+.slime {
+    background-image: url('./images/slime.png');
+}

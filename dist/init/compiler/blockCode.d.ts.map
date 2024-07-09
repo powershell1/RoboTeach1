@@ -1,0 +1,1 @@
+{"version":3,"file":"blockCode.d.ts","sourceRoot":"","sources":["../../../src/init/compiler/blockCode.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,kBAAkB,EAAE,MAAM,cAAc,CAAC;AAElD,qBAAa,SAAS;IAClB,SAAS,EAAE,kBAAkB,CAAC;gBAElB,SAAS,EAAE,kBAAkB;IAIzC,GAAG;CASN"}

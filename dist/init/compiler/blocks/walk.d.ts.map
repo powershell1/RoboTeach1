@@ -1,0 +1,1 @@
+{"version":3,"file":"walk.d.ts","sourceRoot":"","sources":["../../../../src/init/compiler/blocks/walk.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,kBAAkB,EAAE,MAAM,iBAAiB,CAAC;AACrD,OAAO,EAAE,SAAS,EAAE,MAAM,cAAc,CAAC;AAEzC,MAAM,CAAC,OAAO,OAAO,SAAU,SAAQ,SAAS;IAC5C,SAAS,EAAE,kBAAkB,CAAC;gBAElB,SAAS,EAAE,kBAAkB;IAKzC,GAAG;CAIN"}
