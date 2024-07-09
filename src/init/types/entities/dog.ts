@@ -1,4 +1,8 @@
+import Swal from "sweetalert2";
+import { EmulatorWorkspaces } from "../../workspace";
+import { InitableInstance, RenderableObject } from "../interfaces";
 import Pos2 from "../pos2";
+import Slime from "./slime";
 
 const blockPer = 6;
 var mod = function (n: number, m: number) {
@@ -7,15 +11,17 @@ var mod = function (n: number, m: number) {
 };
 const findCell = (y: number, x: number) => document.getElementById(`${y}-${x}`);
 
-export default class Dog extends Pos2 {
+export default class Dog extends Pos2 implements InitableInstance {
     rotation: number;
+    level: EmulatorWorkspaces;
 
-    constructor(pos: Pos2, rotation: number = 180) {
+    constructor(level: EmulatorWorkspaces, pos: Pos2, rotation: number = 180) {
         super(pos.x, pos.y);
+        this.level = level;
         this.rotation = rotation;
     }
 
-    static init = (reference: Dog) => new Dog(Pos2.init(reference), reference.rotation);
+    static init = (reference: Dog) => new Dog(reference.level, Pos2.init(reference), reference.rotation);
 
     walk(forward: boolean): void {
         const add = forward ? 1 : -1;
@@ -35,6 +41,33 @@ export default class Dog extends Pos2 {
         }
         this.x = PosCopy.x;
         this.y = PosCopy.y;
+
+        const findSlime = this.level.entities.find((entity: Pos2 extends RenderableObject ? Pos2 : RenderableObject) => {
+            if (entity instanceof Slime) {
+                return entity.x === this.x && entity.y === this.y;
+            }
+            return false;
+        });
+        if (findSlime) {
+            console.warn('[Dog] Walk into slime');
+            this.level.entities.splice(this.level.entities.indexOf(findSlime), 1);
+            this.level.clearCache();
+            this.level.render();
+            var isFindSlime = this.level.entities.find((entity: Pos2 extends RenderableObject ? Pos2 : RenderableObject) => {
+                return entity instanceof Slime;
+            });
+            if (!isFindSlime) {
+                Swal.fire({
+                    title: 'You passed the first level!',
+                    icon: 'success',
+                    confirmButtonText: 'Restart',
+                    showCancelButton: true,
+                }).then((result) => {
+                    if (result.dismiss) return;
+                    window.location.reload();
+                });
+            }
+        }
     }
 
     render(): void {

@@ -18,8 +18,13 @@ function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string] : a
     }
 }
 
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function compile(workspace: EmulatorWorkspaces, json: { [id: string] : any }) {
     workspace.resetLevel();
+    await sleep(500);
     const cacheB = json['blocks'];
     if (!cacheB) return;
     const blocks: any[] = cacheB['blocks'];

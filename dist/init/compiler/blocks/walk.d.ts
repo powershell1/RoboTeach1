@@ -1,8 +1,23 @@
 import { EmulatorWorkspaces } from "../../workspace";
 import { BlockCode } from "../blockCode";
-export default class WalkBlock extends BlockCode {
+export declare class WalkBlock extends BlockCode {
     workspace: EmulatorWorkspaces;
-    constructor(workspace: EmulatorWorkspaces);
-    run(): void;
+    blockData: {
+        [id: string]: any;
+    };
+    constructor(workspace: EmulatorWorkspaces, blockData: {
+        [id: string]: any;
+    });
+    run(): Promise<void>;
+}
+export declare class RotateBlock extends BlockCode {
+    workspace: EmulatorWorkspaces;
+    blockData: {
+        [id: string]: any;
+    };
+    constructor(workspace: EmulatorWorkspaces, blockData: {
+        [id: string]: any;
+    });
+    run(): Promise<void>;
 }
 //# sourceMappingURL=walk.d.ts.map

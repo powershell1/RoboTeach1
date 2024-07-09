@@ -1,3 +1,4 @@
+/*
 import Dog from "./types/entities/dog";
 import { RenderableObject } from "./types/interfaces";
 import Pos2 from "./types/pos2";
@@ -14,21 +15,11 @@ function getValue<T, K extends keyof T>(data: T, key: K) {
     return data[key];
 }
 
-class CloneableObject {
-    construct: any;
-    object: any;
-
-    constructor(construct: any, object: any) {
-        this.construct = construct;
-        this.object = object;
-    }
-}
-
 export class EmulatorWorkspaces {
-    entities: Pos2 extends RenderableObject ? Pos2[] : RenderableObject[] = [];
+    entities: RenderableObject[] = [];
     actionAvaible: number | null = null;
 
-    cacheWorkspace: any[] = [];
+    cacheWorkspace: any[];
 
     constructor(action: number | null = 10) {
         this.clearCache();
@@ -58,51 +49,32 @@ export class EmulatorWorkspaces {
         // console.log(sturct);
     }
 
-    addEntity(entity: RenderableObject): void {
-        this.entities.push(entity);
-        const enti = entity as any;
-        this.cacheWorkspace[0].push(enti.constructor.init(entity));
-        this.clearCache();
-        this.render();
-    }
-
     resetLevel(): void {
         emulatorDiv.querySelectorAll('.boxes').forEach((cell) => {
             cell.classList.remove('dog');
             cell.classList.remove('slime');
         });
         const sturct = structuredClone(this.cacheWorkspace);
-        // this.entities = [];
-        // console.log("init" in this.entities);
-
         this.entities = [];
-        // const newEntities: RenderableObject[] = [];
-        this.cacheWorkspace[0].forEach((entity: any, idx: number) => {
-            if ("init" in entity.constructor) {
-                this.entities.push(entity.constructor.init(entity));
-            }
+        sturct[0].forEach((entity: RenderableObject) => {
+            this.entities.push(entity);
         });
-        // this.entities = newEntities;
         this.actionAvaible = sturct[1];
         this.render();
     }
 
     clearCache(): void {
         var property: { [id: string]: any } = ({ ...this });
-        for (const prop in property['entities']) {
-            const classProp: any = property['entities'][prop];
-            //const classProp: any = getValue(this, prop as keyof EmulatorWorkspaces);
-            if (classProp != null && "clear" in classProp) {
-                classProp.clear();
-            }
+        for (const prop in property) {
+            const classProp = getValue(this, prop as keyof EmulatorWorkspaces);
         }
     }
 
     render(): void {
         var property: { [id: string]: any } = ({ ...this });
-        for (const prop in property['entities']) {
-            const classProp: any = property['entities'][prop];
-            if (classProp != null && "render" in classProp) {
+        for (const prop in property) {
+            const classProp = getValue(this, prop as keyof EmulatorWorkspaces);
+            if (classProp as RenderableObject) {
                 classProp.render();
             }
         }
@@ -112,11 +84,11 @@ export class EmulatorWorkspaces {
             return;
         }
         actionLeft.innerText = `Action Left: ${this.actionAvaible}`;
-        /*
+        
         this.slimes.forEach((slime) => {
             const foundCell = findCell(slime.y, slime.x);
             foundCell!.classList.add('slime');
         });
-        */
     }
 }
+    */

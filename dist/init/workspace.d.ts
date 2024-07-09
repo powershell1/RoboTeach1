@@ -1,17 +1,13 @@
-export declare class Pos2 {
-    x: number;
-    y: number;
-    constructor(x: number, y: number);
-}
+import { RenderableObject } from "./types/interfaces";
+import Pos2 from "./types/pos2";
 export declare class EmulatorWorkspaces {
-    dog: Pos2 | null;
-    slimes: Pos2[];
+    entities: Pos2 extends RenderableObject ? Pos2[] : RenderableObject[];
     actionAvaible: number | null;
-    cacheWorkspace: EmulatorWorkspaces | null;
-    constructor(dog: Pos2, slimes: Pos2[], action?: number | null);
+    cacheWorkspace: any[];
+    constructor(action?: number | null);
+    addEntity(entity: RenderableObject): void;
     resetLevel(): void;
-    removeCache(): void;
-    refresh(): void;
-    refreshAction(): void;
+    clearCache(): void;
+    render(): void;
 }
 //# sourceMappingURL=workspace.d.ts.map
