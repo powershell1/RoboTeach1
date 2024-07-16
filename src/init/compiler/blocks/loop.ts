@@ -17,7 +17,7 @@ export class LoopBlock extends BlockCode {
         const inputs = this.blockData['inputs']['TIMES'];
         const times = await craftBlock(this.workspace, blockPicker(inputs)).run();
         for (let i = 0; i < times; i++) {
-            if (this.workspace.actionAvaible ?? 1 <= 0) break;
+            if ((this.workspace.actionAvaible ?? 1) < 0) break;
             if (this.blockData['inputs']['DO']) {
                 const doBlock = this.blockData['inputs']['DO']['block'];
                 await craftBlock(this.workspace, doBlock).run();
