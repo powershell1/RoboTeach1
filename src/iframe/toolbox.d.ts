@@ -43,44 +43,11 @@ export declare const toolbox: {
                         };
                     };
                 };
-                FROM?: undefined;
-                TO?: undefined;
-                BY?: undefined;
             };
         } | {
             kind: string;
             type: string;
             inputs?: undefined;
-        } | {
-            kind: string;
-            type: string;
-            inputs: {
-                FROM: {
-                    shadow: {
-                        type: string;
-                        fields: {
-                            NUM: number;
-                        };
-                    };
-                };
-                TO: {
-                    shadow: {
-                        type: string;
-                        fields: {
-                            NUM: number;
-                        };
-                    };
-                };
-                BY: {
-                    shadow: {
-                        type: string;
-                        fields: {
-                            NUM: number;
-                        };
-                    };
-                };
-                TIMES?: undefined;
-            };
         })[];
     } | {
         kind: string;
