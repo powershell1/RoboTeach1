@@ -5,6 +5,7 @@ export default class Wood extends Pos2 implements InitableInstance {
     rotation: number;
     level: EmulatorWorkspaces;
     remain: number;
+    cache: any;
     constructor(level: EmulatorWorkspaces, pos: Pos2, rotation?: number);
     static init: (reference: Wood) => Wood;
     render(): void;

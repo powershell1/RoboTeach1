@@ -9,6 +9,6 @@ export default class Dog extends Pos2 implements InitableInstance {
     static init: (reference: Dog) => Dog;
     walk(forward: boolean): void;
     render(): void;
-    clear(): void;
+    clear(posClear: Pos2 | null): void;
 }
 //# sourceMappingURL=dog.d.ts.map
