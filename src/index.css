@@ -85,9 +85,24 @@ iframe {
 
 .dog {
     background-image: url('./images/dog.png');
+    /*transition: left 0.5s;*/
+    /*transform: var(--dog-rotation);*/
+}
+
+.dog_sword {
+    background-image: url('./images/dog_sword.png');
+    /*transition: left 0.5s;*/
     /*transform: var(--dog-rotation);*/
 }
 
 .slime {
     background-image: url('./images/slime.png');
+}
+
+.wood {
+    background-image: url('./images/wood.png');
+}
+
+.sword {
+    background-image: url('./images/sword.png');
 }

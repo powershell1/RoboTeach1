@@ -8,7 +8,7 @@ var mod = function (n: number, m: number) {
 };
 const findCell = (y: number, x: number) => document.getElementById(`${y}-${x}`);
 
-export default class Slime extends Pos2 implements InitableInstance {
+export default class Sword extends Pos2 implements InitableInstance {
     rotation: number;
     level: EmulatorWorkspaces;
 
@@ -18,21 +18,21 @@ export default class Slime extends Pos2 implements InitableInstance {
         this.rotation = rotation;
     }
 
-    static init = (reference: Slime) => new Slime(reference.level, Pos2.init(reference), reference.rotation);
+    static init = (reference: Sword) => new Sword(reference.level, Pos2.init(reference), reference.rotation);
 
     render(): void {
-        const slimeCell = findCell(this!.y, this!.x);
-        slimeCell!.classList.add('slime');
+        const swordCell = findCell(this!.y, this!.x);
+        swordCell!.classList.add('sword');
         const modRotate = mod(this!.rotation, 360);
         var rotatedSet = `rotate(${mod(modRotate, 180)}deg)`;
         rotatedSet += modRotate >= 180 ? ' rotateY(180deg)' : '';
-        slimeCell!.style.setProperty('transform', rotatedSet);
+        swordCell!.style.setProperty('transform', rotatedSet);
     }
 
     clear(): void {
-        const slimeCell = findCell(this!.y, this!.x);
-        if (slimeCell == null) return;
-        slimeCell!.style.removeProperty('transform');
-        slimeCell!.classList.remove('slime');
+        const swordCell = findCell(this!.y, this!.x);
+        if (swordCell == null) return;
+        swordCell!.style.removeProperty('transform');
+        swordCell!.classList.remove('sword');
     }
 }
