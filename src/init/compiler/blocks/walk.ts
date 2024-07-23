@@ -40,7 +40,7 @@ export class RotateBlock extends BlockCode {
         const add = (2*this.blockData['fields']['LR'])-1;
         this.workspace.entities.forEach((entity: any) => {
             if (entity instanceof Dog) {
-                entity.rotation -= add*90;
+                entity.rotation += add*90;
             }
         });
         // this.workspace.dog!.rotation -= add*90;

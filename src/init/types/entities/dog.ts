@@ -8,6 +8,7 @@ import Sword from "./sword";
 
 import SlamWood from "../../../audio/wood_slam.mp3";
 import EquipSword from "../../../audio/sword.mp3";
+import { levelDatas } from "../../..";
 
 const blockPer = 6;
 var mod = function (n: number, m: number) {
@@ -31,67 +32,78 @@ export default class Dog extends Pos2 implements InitableInstance {
 
     walk(forward: boolean): void {
         const add = forward ? 1 : -1;
-        const PosCopy = Pos2.init(this);
+        const NextPos = Pos2.init(this);
         if (this.rotation === 0) {
-            PosCopy.x += add;
+            NextPos.x += add;
         } else if (this.rotation === 90) {
-            PosCopy.y += add;
+            NextPos.y += add;
         } else if (this.rotation === 180) {
-            PosCopy.x -= add;
+            NextPos.x -= add;
         } else if (this.rotation === 270) {
-            PosCopy.y -= add;
+            NextPos.y -= add;
         }
-        if (PosCopy.x < 0 || PosCopy.x >= blockPer || PosCopy.y < 0 || PosCopy.y >= blockPer) {
+        if (NextPos.x < 0 || NextPos.x >= blockPer || NextPos.y < 0 || NextPos.y >= blockPer) {
             console.warn('[Dog] Wak out of bound');
             return;
         }
         const cachePos = structuredClone(this);
+        /*
         this.x = PosCopy.x;
         this.y = PosCopy.y;
+        */
         const findEntity = this.level.entities.find((entity: Pos2 extends RenderableObject ? Pos2 : RenderableObject) => {
             if (entity instanceof Pos2 && !(entity instanceof Dog)) {
-                return entity.x === PosCopy.x && entity.y === PosCopy.y;
+                return entity.x === NextPos.x && entity.y === NextPos.y;
             }
             return false;
         });
         if (findEntity instanceof Slime) {
             console.info('[Dog] Walk into slime');
             this.level.entities.splice(this.level.entities.indexOf(findEntity), 1);
-            this.level.clearCache();
-            this.level.render();
             var isFindSlime = this.level.entities.find((entity: Pos2 extends RenderableObject ? Pos2 : RenderableObject) => {
                 return entity instanceof Slime;
             });
             if (!isFindSlime) {
+                const urlParams = new URLSearchParams(location.search);
+                const pageLevel = parseInt(urlParams.get('level') || '1');
+                if (levelDatas[pageLevel] == undefined) {
+                    Swal.fire({
+                        title: 'You passed all of the level!',
+                        icon: 'success',
+                    });
+                    return;
+                }
                 Swal.fire({
-                    title: 'You passed the first level!',
+                    title: 'You passed the level!',
                     icon: 'success',
                     confirmButtonText: 'Next Level',
+                    cancelButtonText: 'Replay',
                     showCancelButton: true,
                 }).then((result) => {
                     if (result.dismiss) return;
-                    window.location.href = '?level=2';
+                    window.location.href = `?level=${pageLevel + 1}`;
                 });
             }
-            return;
         } else if (findEntity instanceof Wood) {
             console.warn('[Dog] Walk into wood');
+            if (this.sword) {
+                findEntity.remain -= 1;
+            }
             var snd = new Audio(SlamWood); // buffers automatically when created
             snd.play();
+            return;
         } else if (findEntity instanceof Sword) {
             console.info('[Dog] Walk into sword');
             this.sword = true;
             this.level.entities.splice(this.level.entities.indexOf(findEntity), 1);
-            this.level.clearCache();
-            this.level.render();
             var snd = new Audio(EquipSword); // buffers automatically when created
             snd.play();
-            return;
         } else {
-            return;
         }
-        this.x = cachePos.x;
-        this.y = cachePos.y;
+        this.x = NextPos.x;
+        this.y = NextPos.y;
+        this.level.clearCache();
+        this.level.render();
     }
 
     render(): void {
@@ -107,8 +119,11 @@ export default class Dog extends Pos2 implements InitableInstance {
         dogCell!.style.setProperty('transform', rotatedSet);
     }
 
-    clear(): void {
-        const dogCell = findCell(this!.y, this!.x);
+    clear(posClear: Pos2 | null): void {
+        var dogCell = findCell(this!.y, this!.x);
+        if (posClear != null) {
+            dogCell = findCell(posClear.y, posClear.x);
+        }
         if (dogCell == null) return;
         dogCell!.style.removeProperty('transform');
         dogCell!.classList.remove('dog');

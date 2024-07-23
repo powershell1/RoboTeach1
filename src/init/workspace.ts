@@ -88,6 +88,17 @@ export class EmulatorWorkspaces {
     }
 
     clearCache(): void {
+        document.querySelector("body > div > div > div")!.querySelectorAll(".boxes").forEach((cell) => {
+            if (cell instanceof HTMLElement) {
+                if (cell.getAttribute('style')) {
+                    cell.removeAttribute('style');
+                }
+                cell.classList.forEach((className) => {
+                    if (className === 'boxes') return;
+                    cell.classList.remove(className);
+                });
+            }
+        });
         var property: { [id: string]: any } = ({ ...this });
         for (const prop in property['entities']) {
             const classProp: any = property['entities'][prop];
