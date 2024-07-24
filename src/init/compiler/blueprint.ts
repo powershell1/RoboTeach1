@@ -3,7 +3,7 @@ import { BlockCode } from "./blockCode";
 import RunBlock from "./blocks/events";
 import { LoopBlock } from "./blocks/loop";
 import { MathBlock, MathOperationBlock } from "./blocks/math";
-import { WalkBlock, RotateBlock } from "./blocks/walk";
+import { WalkBlock, RotateBlock, WaitTurn } from "./blocks/walk";
 
 
 function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: any }): BlockCode {
@@ -20,6 +20,8 @@ function craftBlock(workspace: EmulatorWorkspaces, blockData: { [id: string]: an
             return new MathBlock(workspace, blockData);
         case 'math_arithmetic':
             return new MathOperationBlock(workspace, blockData);
+        case 'wait_turn':
+            return new WaitTurn(workspace, blockData);
         default:
             throw new Error(`Block not found ${blockData.type}`);
         // return new BlockCode(workspace, blockData);

@@ -7,8 +7,10 @@ import Wood from "./wood";
 import Sword from "./sword";
 
 import SlamWood from "../../../audio/wood_slam.mp3";
+import SlimeDied from "../../../audio/slime_died.mp3";
 import EquipSword from "../../../audio/sword.mp3";
 import { levelDatas } from "../../..";
+import Hunter from "./hunter";
 
 const blockPer = 6;
 var mod = function (n: number, m: number) {
@@ -59,6 +61,8 @@ export default class Dog extends Pos2 implements InitableInstance {
         });
         if (findEntity instanceof Slime) {
             console.info('[Dog] Walk into slime');
+            var snd = new Audio(SlimeDied); // buffers automatically when created
+            snd.play();
             this.level.entities.splice(this.level.entities.indexOf(findEntity), 1);
             var isFindSlime = this.level.entities.find((entity: Pos2 extends RenderableObject ? Pos2 : RenderableObject) => {
                 return entity instanceof Slime;
@@ -91,6 +95,9 @@ export default class Dog extends Pos2 implements InitableInstance {
             }
             var snd = new Audio(SlamWood); // buffers automatically when created
             snd.play();
+            return;
+        } else if (findEntity instanceof Hunter) {
+            console.info('[Dog] Walk into hunter');
             return;
         } else if (findEntity instanceof Sword) {
             console.info('[Dog] Walk into sword');

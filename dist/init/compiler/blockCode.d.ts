@@ -8,6 +8,6 @@ export declare class BlockCode {
         [id: string]: any;
     });
     clear(): void;
-    run(actionDeduct?: boolean): Promise<any>;
+    run(actionDeduct?: boolean, nextAction?: boolean): Promise<any>;
 }
 //# sourceMappingURL=blockCode.d.ts.map

@@ -66,6 +66,7 @@ export default class Wood extends Pos2 implements InitableInstance {
             breakingDOM.src = breakingProgress[progress];
             breakingDOM.style.width = '100%';
             breakingDOM.style.height = '100%';
+            breakingDOM.style.position = 'absolute';
             woodCell!.appendChild(breakingDOM);
         }
         const modRotate = mod(this!.rotation, 360);

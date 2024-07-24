@@ -19,6 +19,14 @@ module.exports = {
         },
       ],
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/404', // Adjusted source path
+          to: '404', // Adjusted destination path
+        },
+      ],
+    }),
   ],
   output: {
     filename: '[name].bundle.js',

@@ -1,14 +1,14 @@
 import { EmulatorWorkspaces } from "../../workspace";
 import { InitableInstance } from "../interfaces";
 import Pos2 from "../pos2";
-export default class Dog extends Pos2 implements InitableInstance {
+export default class Hunter extends Pos2 implements InitableInstance {
     rotation: number;
     level: EmulatorWorkspaces;
-    sword: boolean;
+    cache: any;
+    oldAction: number | null;
     constructor(level: EmulatorWorkspaces, pos: Pos2, rotation?: number);
-    static init: (reference: Dog) => Dog;
-    walk(forward: boolean): void;
+    static init: (reference: Hunter) => Hunter;
     render(): void;
-    clear(posClear: Pos2 | null): void;
+    clear(): void;
 }
-//# sourceMappingURL=dog.d.ts.map
+//# sourceMappingURL=hunter.d.ts.map

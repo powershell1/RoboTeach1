@@ -2,6 +2,7 @@
 import './index.css';
 import { compile } from './init/compiler/blueprint';
 import Dog from './init/types/entities/dog';
+import Hunter from './init/types/entities/hunter';
 import Slime from './init/types/entities/slime';
 import Sword from './init/types/entities/sword';
 import Wood from './init/types/entities/wood';
@@ -48,15 +49,50 @@ export const levelDatas = [
         new Wood(workspace, new Pos2(5, 2), 0),
         new Wood(workspace, new Pos2(4, 3), 0),
     ],
+    [
+        new Dog(workspace, new Pos2(0, 0)),
+        new Hunter(workspace, new Pos2(5, 0), -180),
+        new Slime(workspace, new Pos2(2, 5), 0),
+    ],
+    [
+        new Dog(workspace, new Pos2(0, 0)),
+        new Hunter(workspace, new Pos2(3, 0), -180),
+        new Wood(workspace, new Pos2(1, 2), 0),
+        new Wood(workspace, new Pos2(3, 2), 0),
+        new Slime(workspace, new Pos2(4, 3), 0),
+    ],
+    [
+        new Dog(workspace, new Pos2(0, 2)),
+        new Wood(workspace, new Pos2(3, 1), 0),
+        new Wood(workspace, new Pos2(2, 2), 0),
+        new Slime(workspace, new Pos2(3, 2), 0),
+        new Wood(workspace, new Pos2(4, 2), 0),
+        new Wood(workspace, new Pos2(3, 3), 0),
+        new Hunter(workspace, new Pos2(5, 0), -180),
+    ],
 ];
 
 if (isBundleCalling()) {
     const urlParams = new URLSearchParams(location.search);
     const pageLevel = urlParams.get('level') || '1';
     const data = levelDatas[parseInt(pageLevel) - 1];
+    document.querySelector("body > nav > h1")!.textContent = `Level ${pageLevel}`;
+    document.querySelector("#next")!.addEventListener('click', () => {
+        location.href = `/?level=${parseInt(pageLevel) + 1}`;
+    });
+    document.querySelector("#pev")!.addEventListener('click', () => {
+        location.href = `/?level=${parseInt(pageLevel) - 1}`;
+    });
+    if (levelDatas[parseInt(pageLevel) - 2] == undefined) {
+        document.querySelector("#pev")!.remove();
+    }
+    if (levelDatas[parseInt(pageLevel)] == undefined) {
+        document.querySelector("#next")!.remove();
+    }
     if (data == undefined) {
-        document.body.innerHTML = 'Level not found';
-        throw new Error('Level not found');
+        location.href = '/404';
+    } else if (location.pathname != '/') {
+        location.href = '/404';
     }
     data.forEach((entity: any) => {
         workspace.addEntity(entity);

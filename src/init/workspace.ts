@@ -67,11 +67,12 @@ export class EmulatorWorkspaces {
     }
 
     resetLevel(): void {
+        const sturct = structuredClone(this.cacheWorkspace);
+        this.actionAvaible = sturct[1];
         emulatorDiv.querySelectorAll('.boxes').forEach((cell) => {
             cell.classList.remove('dog');
             cell.classList.remove('slime');
         });
-        const sturct = structuredClone(this.cacheWorkspace);
         // this.entities = [];
         // console.log("init" in this.entities);
 
@@ -83,7 +84,6 @@ export class EmulatorWorkspaces {
             }
         });
         // this.entities = newEntities;
-        this.actionAvaible = sturct[1];
         this.render();
     }
 

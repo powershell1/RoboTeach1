@@ -18,7 +18,7 @@ export class BlockCode {
         this.workspace.clearCache();
     }
 
-    async run(actionDeduct: boolean = true): Promise<any> {
+    async run(actionDeduct: boolean = true, nextAction: boolean = true): Promise<any> {
         // console.log('BlockCode run');
         if (actionDeduct && this.workspace.actionAvaible != null) {
             var actionAvaible: number = this.workspace.actionAvaible ?? 0;
@@ -27,7 +27,7 @@ export class BlockCode {
         this.workspace.render();
         if (actionDeduct) await timeout(500);
         const nextBlock = this.blockData['next'];
-        if (nextBlock) {
+        if (nextBlock && nextAction) {
             const nextBlockData = craftBlock(this.workspace, nextBlock['block']);
             await nextBlockData.run();
         }

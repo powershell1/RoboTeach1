@@ -10,12 +10,21 @@
     <title>Robofriend Teach 1</title>
 </head>
 <body>
+    <nav>
+        <h1>Level 1</h1>
+        <div class="menu">
+            <a id="pev"><p>Previous</p></a>
+            <a id="next"><p>Next</p></a>
+        </div>
+    </nav>
     <!--<iframe src="./blockly_pre/dist/" frameborder="0"></iframe>-->
     <div class="flex">
-        <iframe src="./iframe/index.html" frameborder="0"></iframe>
+        <iframe src="./iframe/index.html" frameborder="0">
+        </iframe>
         <div class="dog_emulator">
             <h2 id="action_limit">Action left: ?</h2>
             <div class="emulator">
+                <div id="moveable_entity"></div>
             </div>
         </div>
     </div>

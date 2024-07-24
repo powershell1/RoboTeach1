@@ -1,6 +1,7 @@
 import Dog from "../../types/entities/dog";
 import { EmulatorWorkspaces } from "../../workspace";
 import { BlockCode } from "../blockCode";
+import { blockPicker, craftBlock } from "../blueprint";
 
 export class WalkBlock extends BlockCode {
     workspace: EmulatorWorkspaces;
@@ -46,6 +47,28 @@ export class RotateBlock extends BlockCode {
         // this.workspace.dog!.rotation -= add*90;
         // const add = this.blockData['fields']['DEG'];
         // this.workspace.dog!.y = this.workspace.dog!.y + add;
+        await super.run();
+    }
+}
+
+export class WaitTurn extends BlockCode {
+    workspace: EmulatorWorkspaces;
+    blockData: { [id: string]: any; };
+
+    constructor(workspace: EmulatorWorkspaces, blockData: { [id: string] : any }) {
+        super(workspace, blockData);
+        this.workspace = workspace;
+        this.blockData = blockData;
+    }
+
+    async run() {
+        const num1 = await craftBlock(this.workspace, blockPicker(this.blockData['inputs']['TURNS'])).run();
+        if (num1 === null) return;
+        for (let i = 1; i < num1; i++) {
+            await super.clear();
+            await super.run(true, false);
+        }
+        await super.clear();
         await super.run();
     }
 }
