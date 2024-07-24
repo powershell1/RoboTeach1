@@ -20,4 +20,14 @@ export declare class RotateBlock extends BlockCode {
     });
     run(): Promise<void>;
 }
+export declare class WaitTurn extends BlockCode {
+    workspace: EmulatorWorkspaces;
+    blockData: {
+        [id: string]: any;
+    };
+    constructor(workspace: EmulatorWorkspaces, blockData: {
+        [id: string]: any;
+    });
+    run(): Promise<void>;
+}
 //# sourceMappingURL=walk.d.ts.map
