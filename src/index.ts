@@ -91,8 +91,6 @@ if (isBundleCalling()) {
     }
     if (data == undefined) {
         location.href = '/404';
-    } else if (location.pathname != '/') {
-        location.href = '/404';
     }
     data.forEach((entity: any) => {
         workspace.addEntity(entity);
